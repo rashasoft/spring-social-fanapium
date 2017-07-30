@@ -1,0 +1,8 @@
+{
+    "access_token": "99c9e4770e47436ea73722df275a2193",
+    "expires_in": 900,
+    "id_token": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIzODEiLCJpc3MiOiJodHRwczovL3d3dy5mYW5hcGl1bS5jb20vIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibS5zYWVlZCIsImV4cCI6MTUwMzQ4NTIxOCwiZ2l2ZW5fbmFtZSI6IiIsImlhdCI6MTUwMDg5MzIxOCwiZmFtaWx5X25hbWUiOiIifQ.u-dThhw9J1pAuaJNAARcBO4a8L4C5LilBoc0Jc3zqiyzE0cGyH4Sog2PGANCixBV6FtUpHTqbyU-d2gnGrnxGBn5d6Hlj6Q_W5E8JIz66RpK-mMrSx8CNNOWkkQHTUMuy7Tp49BMszCcb7YKXtdh6T2HcKI-oSXU2Xx_f7kh4kc",
+    "refresh_token": "960113500870460f8d82a453d1fc2b74",
+    "scope": "profile read",
+    "token_type": "bearer"
+}
