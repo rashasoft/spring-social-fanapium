@@ -27,6 +27,8 @@ import org.springframework.social.fanapium.connect.FanapiumConnectionFactory;
 @AutoConfigureBefore(SocialWebAutoConfiguration.class)
 @AutoConfigureAfter(WebMvcAutoConfiguration.class)
 public class FanapiumAutoConfiguration {
+
+
     protected static class FanapiumConfigurerAdapter extends SocialConfigurerAdapter {
         @Autowired
         FanapiumProperties properties;
@@ -44,6 +46,7 @@ public class FanapiumAutoConfiguration {
         public GenericConnectionStatusView fanapiumConnectView() {
             return new GenericConnectionStatusView("fanapium", "Fanapium");
         }
+
 
         @Override
         public void addConnectionFactories(final ConnectionFactoryConfigurer configurer, final Environment environment) {
