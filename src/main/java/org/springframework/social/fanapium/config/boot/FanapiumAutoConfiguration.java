@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.env.Environment;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
+import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
@@ -26,6 +27,7 @@ import org.springframework.social.fanapium.connect.FanapiumConnectionFactory;
 @ConditionalOnProperty(prefix = "spring.social.fanapium", name = "client-id")
 @AutoConfigureBefore(SocialWebAutoConfiguration.class)
 @AutoConfigureAfter(WebMvcAutoConfiguration.class)
+@EnableSocial
 public class FanapiumAutoConfiguration {
 
 
