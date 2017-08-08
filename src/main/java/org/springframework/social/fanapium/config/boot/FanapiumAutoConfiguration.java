@@ -22,6 +22,9 @@ import org.springframework.social.connect.web.GenericConnectionStatusView;
 import org.springframework.social.fanapium.api.Fanapium;
 import org.springframework.social.fanapium.connect.FanapiumConnectionFactory;
 
+import javax.inject.Inject;
+import javax.sql.DataSource;
+
 @Configuration
 @ConditionalOnClass({SocialConfigurerAdapter.class, FanapiumConnectionFactory.class})
 @ConditionalOnProperty(prefix = "spring.social.fanapium", name = "client-id")
@@ -34,6 +37,9 @@ public class FanapiumAutoConfiguration {
     protected static class FanapiumConfigurerAdapter extends SocialConfigurerAdapter {
         @Autowired
         FanapiumProperties properties;
+
+        @Inject
+        private DataSource dataSource;
 
         @Bean
         @ConditionalOnMissingBean
@@ -58,5 +64,6 @@ public class FanapiumAutoConfiguration {
             factory.setScope("email profile");
             configurer.addConnectionFactory(factory);
         }
+
     }
 }

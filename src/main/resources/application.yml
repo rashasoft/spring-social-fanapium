@@ -1,5 +1,5 @@
 spring:
   social:
     fanapium:
-        clientId:
-        clientSecret:
+        clientId: a5174580a4dc8e0f1847ac97
+        clientSecret: 0c21bcee

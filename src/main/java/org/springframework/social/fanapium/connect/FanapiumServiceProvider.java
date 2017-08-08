@@ -8,11 +8,13 @@ public final class FanapiumServiceProvider extends AbstractOAuth2ServiceProvider
 
     private final String clientId;
     private final String clientSecret;
+    private final String accessToken;
 
-    public FanapiumServiceProvider(final String clientId, final String clientSecret) {
-        super(new FanapiumOAuth2Template(clientId, clientSecret));
+    public FanapiumServiceProvider(final String clientId, final String clientSecret, final String accessToken) {
+        super(new FanapiumOAuth2Template(clientId, clientSecret, accessToken));
         this.clientId = clientId;
         this.clientSecret = clientSecret;
+        this.accessToken = accessToken;
     }
 
     @Override

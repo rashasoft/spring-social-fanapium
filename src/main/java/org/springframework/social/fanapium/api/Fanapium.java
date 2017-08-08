@@ -4,7 +4,9 @@ import org.springframework.social.ApiBinding;
 
 public interface Fanapium extends ApiBinding {
 
-    UserOperations userOperations();
+    ChatOperations chatOperations();
 
-    WalletOperations walletOperations();
+    PostOperations postOperations();
+
+    UserOperations userOperations();
 }

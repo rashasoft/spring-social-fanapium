@@ -16,7 +16,7 @@ import java.util.Map.Entry;
 
 public class FanapiumOAuth2Template extends OAuth2Template {
 
-    public FanapiumOAuth2Template(final String clientId, final String clientSecret) {
+    public FanapiumOAuth2Template(final String clientId, final String clientSecret, final String accessToken) {
         super(
                 clientId,
                 clientSecret,

@@ -1,7 +1,10 @@
 package org.springframework.social.fanapium.api;
 
-import org.springframework.social.fanapium.api.impl.UserInfo;
+import org.springframework.social.fanapium.api.model.AbstractResponseDTO;
+import org.springframework.social.fanapium.api.model.CustomerProfile;
 
 public interface UserOperations {
-    UserInfo getUserInfo();
+
+    AbstractResponseDTO<CustomerProfile> getUserProfile();
+
 }

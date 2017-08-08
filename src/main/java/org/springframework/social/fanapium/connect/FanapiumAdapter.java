@@ -4,15 +4,15 @@ import org.springframework.social.ApiException;
 import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.ConnectionValues;
 import org.springframework.social.connect.UserProfile;
-import org.springframework.social.fanapium.api.Fanapium;
-import org.springframework.social.fanapium.api.impl.UserInfo;
 import org.springframework.social.connect.UserProfileBuilder;
+import org.springframework.social.fanapium.api.Fanapium;
+import org.springframework.social.fanapium.api.model.CustomerProfile;
 
 
 public class FanapiumAdapter implements ApiAdapter<Fanapium> {
     public boolean test(Fanapium fanapium) {
         try {
-            fanapium.userOperations().getUserInfo();
+            fanapium.postOperations().getUserPostInfos("612");
             return true;
         } catch (ApiException e) {
             return false;
@@ -20,23 +20,21 @@ public class FanapiumAdapter implements ApiAdapter<Fanapium> {
     }
 
     public void setConnectionValues(Fanapium fanapium, ConnectionValues values) {
-        UserInfo userInfo = fanapium.userOperations().getUserInfo();
-        values.setDisplayName(userInfo.getGivenName());
-        values.setProviderUserId(userInfo.getId().toString());
-        values.setImageUrl(userInfo.getPicture()); // FIXME
-        values.setProfileUrl("" + userInfo.getRefCode()); // FIXME
+        CustomerProfile customerProfile = fanapium.userOperations().getUserProfile().getResult();
+        values.setDisplayName(customerProfile.getName());
+        values.setProviderUserId(customerProfile.getUserId().toString());
     }
 
     public UserProfile fetchUserProfile(Fanapium fanapium) {
-        UserInfo userInfo = fanapium.userOperations().getUserInfo();
+        CustomerProfile userInfo = null;
 
         return new UserProfileBuilder()
-                .setId(userInfo.getId().toString())
-                .setFirstName(userInfo.getGivenName())
-                .setLastName(userInfo.getFamilyName())
-                .setName(userInfo.getGivenName() + " " + userInfo.getFamilyName())
+                .setId(userInfo.getUserId().toString())
+                .setFirstName(userInfo.getFirstName())
+                .setLastName(userInfo.getLastName())
+                .setName(userInfo.getName())
                 .setEmail(userInfo.getEmail())
-                .setUsername(userInfo.getPreferredUsername())
+                .setUsername(userInfo.getCellphoneNumber())
                 .build();
     }
 

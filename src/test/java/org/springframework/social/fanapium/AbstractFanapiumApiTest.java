@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public abstract class AbstractFanapiumApiTest {
+
     protected FanapiumTemplate fanapiumTemplate;
     protected MockRestServiceServer mockRestServiceServer;
 
