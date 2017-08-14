@@ -59,7 +59,7 @@ public class FanapiumAutoConfiguration {
         @Override
         public void addConnectionFactories(final ConnectionFactoryConfigurer configurer, final Environment environment) {
             final FanapiumConnectionFactory factory =
-                    new FanapiumConnectionFactory(properties.getClientId(), properties.getClientSecret());
+                    new FanapiumConnectionFactory(properties.getClientId(), properties.getClientSecret(), "");
 
             factory.setScope("email profile");
             configurer.addConnectionFactory(factory);

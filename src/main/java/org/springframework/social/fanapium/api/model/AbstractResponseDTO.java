@@ -17,6 +17,7 @@ public class AbstractResponseDTO<T> {
     private Integer errorCode;
     private Integer count;
     private String ott;
+    private String message;
     private T result;
 
 
@@ -56,6 +57,14 @@ public class AbstractResponseDTO<T> {
 
     public void setOtt(String ott) {
         this.ott = ott;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public T getResult() {

@@ -4,6 +4,8 @@ import org.springframework.social.fanapium.api.model.AbstractResponseDTO;
 import org.springframework.social.fanapium.api.model.CustomPost;
 import org.springframework.social.fanapium.api.model.TimelineItem;
 import org.springframework.social.fanapium.api.model.UserPostInfo;
+import org.springframework.social.fanapium.api.model.requestDTO.CustomPostRequestDTO;
+import org.springframework.social.fanapium.api.model.requestDTO.TimeLineRequestDTO;
 
 /**
  * @author hosseini <smh.hosseiny@gmail.com>
@@ -11,10 +13,10 @@ import org.springframework.social.fanapium.api.model.UserPostInfo;
  */
 public interface PostOperations {
 
-    AbstractResponseDTO<TimelineItem> timeline(String timelineId, String entityId, String query, String firstId, String lastId, String offset, String size, String type, String guildCodes, String metadata, String businessIs);
+    AbstractResponseDTO<TimelineItem> timeline(TimeLineRequestDTO timeLineRequestDTO);
 
     AbstractResponseDTO<UserPostInfo> getUserPostInfos(String postId);
 
-    AbstractResponseDTO<CustomPost> addCustomPost(String name, String content, String[] categories, String canComment, String canLike, String enable, String metadata, String tags);
+    AbstractResponseDTO<CustomPost> addCustomPost(CustomPostRequestDTO customPost);
 
 }

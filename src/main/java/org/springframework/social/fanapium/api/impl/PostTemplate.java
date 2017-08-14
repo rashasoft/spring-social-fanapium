@@ -5,6 +5,11 @@ import org.springframework.social.fanapium.api.model.AbstractResponseDTO;
 import org.springframework.social.fanapium.api.model.CustomPost;
 import org.springframework.social.fanapium.api.model.TimelineItem;
 import org.springframework.social.fanapium.api.model.UserPostInfo;
+import org.springframework.social.fanapium.api.model.requestDTO.CustomPostRequestDTO;
+import org.springframework.social.fanapium.api.model.requestDTO.TimeLineRequestDTO;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author hosseini <smh.hosseiny@gmail.com>
@@ -12,22 +17,31 @@ import org.springframework.social.fanapium.api.model.UserPostInfo;
  */
 public class PostTemplate extends AbstractFanapiumOperations implements PostOperations {
 
+    private static String TIMELINE_URL = "nzh/biz/timeline";
+    private static String GET_USER_POST_INFOS_URL = "nzh/getUserPostInfos";
+    private static String ADD_CUSTOM_POST_URL = "nzh/addCustomPost";
+
     public PostTemplate(FanapiumTemplate fanapium, boolean isAuthorized) {
         super(fanapium, isAuthorized);
     }
 
     @Override
-    public AbstractResponseDTO<TimelineItem> timeline(String timelineId, String entityId, String query, String firstId, String lastId, String offset, String size, String type, String guildCodes, String metadata, String businessIs) {
-        return null;
+    public AbstractResponseDTO<TimelineItem> timeline(TimeLineRequestDTO timeLineRequestDTO) {
+        requireUserAuthorization();
+        return get(buildUri(TIMELINE_URL, timeLineRequestDTO.getMap()), AbstractResponseDTO.class);
     }
 
     @Override
     public AbstractResponseDTO<UserPostInfo> getUserPostInfos(String postId) {
-        return null;
+        requireUserAuthorization();
+        Map<String, String> params = new HashMap<>();
+        params.put("postId", postId);
+        return get(buildUri(GET_USER_POST_INFOS_URL, params), AbstractResponseDTO.class);
     }
 
     @Override
-    public AbstractResponseDTO<CustomPost> addCustomPost(String name, String content, String[] categories, String canComment, String canLike, String enable, String metadata, String tags) {
-        return null;
+    public AbstractResponseDTO<CustomPost> addCustomPost(CustomPostRequestDTO customPostRequestDTO) {
+
+        return get(buildUri(ADD_CUSTOM_POST_URL, customPostRequestDTO.getMap()), AbstractResponseDTO.class);
     }
 }

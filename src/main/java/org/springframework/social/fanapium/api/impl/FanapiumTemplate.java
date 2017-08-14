@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.social.fanapium.api.ChatOperations;
-import org.springframework.social.fanapium.api.Fanapium;
-import org.springframework.social.fanapium.api.FanapiumErrorHandler;
-import org.springframework.social.fanapium.api.PostOperations;
+import org.springframework.social.fanapium.api.*;
 import org.springframework.social.fanapium.api.impl.json.FanapiumModule;
 import org.springframework.social.fanapium.api.model.AbstractResponseDTO;
 import org.springframework.social.fanapium.api.model.CustomPost;
@@ -28,6 +25,7 @@ public class FanapiumTemplate extends AbstractOAuth2ApiBinding implements Fanapi
 
     private ChatOperations chatOperations;
     private PostOperations postOperations;
+    private UserOperations userOperations;
 
     private ObjectMapper objectMapper;
 
@@ -60,6 +58,11 @@ public class FanapiumTemplate extends AbstractOAuth2ApiBinding implements Fanapi
 
     public PostOperations postOperations() {
         return postOperations;
+    }
+
+    @Override
+    public UserOperations userOperations() {
+        return userOperations;
     }
 
     private void wrapRequestFactory() {
@@ -102,6 +105,7 @@ public class FanapiumTemplate extends AbstractOAuth2ApiBinding implements Fanapi
     private void initSubApis() {
         postOperations = new PostTemplate(this, isAuthorized());
         chatOperations = new ChatTemplate(this, isAuthorized());
+        userOperations = new UserTemplate(this, isAuthorized());
     }
 
 
