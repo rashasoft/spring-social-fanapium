@@ -8,6 +8,7 @@ import org.springframework.social.fanapium.api.model.UserPostInfo;
 import org.springframework.social.fanapium.api.model.requestDTO.CustomPostRequestDTO;
 import org.springframework.social.fanapium.api.model.requestDTO.TimeLineRequestDTO;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +41,7 @@ public class PostTemplate extends AbstractFanapiumOperations implements PostOper
     }
 
     @Override
-    public AbstractResponseDTO<CustomPost> addCustomPost(CustomPostRequestDTO customPostRequestDTO) {
+    public AbstractResponseDTO<CustomPost> addCustomPost(@Valid CustomPostRequestDTO customPostRequestDTO) {
 
         return get(buildUri(ADD_CUSTOM_POST_URL, customPostRequestDTO.getMap()), AbstractResponseDTO.class);
     }

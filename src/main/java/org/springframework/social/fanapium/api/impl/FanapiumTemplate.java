@@ -1,20 +1,14 @@
 package org.springframework.social.fanapium.api.impl;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.fanapium.api.*;
 import org.springframework.social.fanapium.api.impl.json.FanapiumModule;
-import org.springframework.social.fanapium.api.model.AbstractResponseDTO;
-import org.springframework.social.fanapium.api.model.CustomPost;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.OAuth2Version;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.IOException;
 
 public class FanapiumTemplate extends AbstractOAuth2ApiBinding implements Fanapium {
 
@@ -29,27 +23,19 @@ public class FanapiumTemplate extends AbstractOAuth2ApiBinding implements Fanapi
 
     private ObjectMapper objectMapper;
 
-    public FanapiumTemplate(String accessToken) {
+    public FanapiumTemplate(String clientId, String clientSecret, String accessToken) {
         super(accessToken);
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.accessToken = accessToken;
         wrapRequestFactory();
         initialize();
     }
 
     public static void main(String[] args) {
-        JsonFactory factory = new JsonFactory();
-        String jp = null;
-        jp = "{\"hasError\":false,\"errorCode\":0,\"count\":0,\"ott\":\"568a71a540ead368\",\"result\":{\"id\":612,\"timelineId\":548,\"entityId\":310,\"numOfLikes\":0,\"numOfFavorites\":0,\"numOfComments\":0,\"timestamp\":1502083216366,\"enable\":true,\"hide\":false,\"business\":{\"id\":163,\"imageInfo\":{\"id\":165,\"actualWidth\":720,\"actualHeight\":405,\"width\":720,\"height\":405},\"image\":\"http://templates24.org/web/uploads/defaults/profileImage.png\",\"numOfProducts\":0,\"rate\":{\"rate\":0.0,\"rateCount\":0}},\"userPostInfo\":{\"postId\":612,\"liked\":false,\"favorite\":false},\"latitude\":0.0,\"longitude\":0.0,\"canComment\":true,\"canLike\":true,\"tags\":[\"test\"],\"name\":\"test\",\"data\":\"test\",\"categoryList\":[]}}";
-        final ObjectMapper objectMapper = new ObjectMapper();
-
-        AbstractResponseDTO<CustomPost> result = null;
-        JavaType typeRef = objectMapper.getTypeFactory().constructParametricType(AbstractResponseDTO.class, CustomPost.class);
-        try {
-            result = objectMapper.readValue(jp, typeRef);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+        FanapiumTemplate fanapiumTemplate = new FanapiumTemplate("a5174580a4dc8e0f1847ac97", "0c21bcee", null);
+        fanapiumTemplate.postOperations().getUserPostInfos("12");
+        System.out.println("hey");
     }
 
     public ChatOperations chatOperations() {
@@ -107,6 +93,5 @@ public class FanapiumTemplate extends AbstractOAuth2ApiBinding implements Fanapi
         chatOperations = new ChatTemplate(this, isAuthorized());
         userOperations = new UserTemplate(this, isAuthorized());
     }
-
 
 }

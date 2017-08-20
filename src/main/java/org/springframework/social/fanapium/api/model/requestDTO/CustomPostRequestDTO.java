@@ -1,13 +1,16 @@
 package org.springframework.social.fanapium.api.model.requestDTO;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author hosseini <smh.hosseiny@gmail.com>
  * @since 8/14/17.
  */
 public class CustomPostRequestDTO extends AbstractRequestDTO {
 
-    String[] categories;
+    private String[] categories;
     private String name;
+    @NotNull
     private String content;
     private String canComment;
     private String canLike;

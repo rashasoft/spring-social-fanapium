@@ -7,6 +7,7 @@
 
 package org.springframework.social.fanapium.api.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,6 +31,7 @@ public class CustomPost {
 
     private Long timestamp = null;
 
+    @NotNull
     private Boolean enable = null;
 
     private Boolean hide = null;

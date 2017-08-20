@@ -140,3 +140,4 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+!/src/main/java/org/springframework/social/fanapium/api/impl/PostTemplate.java

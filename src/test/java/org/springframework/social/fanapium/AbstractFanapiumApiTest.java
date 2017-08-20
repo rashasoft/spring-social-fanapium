@@ -16,7 +16,7 @@ public abstract class AbstractFanapiumApiTest {
 
     @Before
     public void setupTest() {
-        fanapiumTemplate = new FanapiumTemplate("JWT_TOKEN");
+        fanapiumTemplate = new FanapiumTemplate("a5174580a4dc8e0f1847ac97", "0c21bcee", null);
         mockRestServiceServer = MockRestServiceServer.createServer(fanapiumTemplate.getRestTemplate());
     }
 

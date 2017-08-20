@@ -2,6 +2,7 @@ package org.springframework.social.fanapium.api.model.requestDTO;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.validation.Validator;
 import java.util.Map;
 
 /**
@@ -9,6 +10,14 @@ import java.util.Map;
  * @since 8/14/17.
  */
 public abstract class AbstractRequestDTO {
+
+
+    private Validator validator;
+
+    public Boolean validate() {
+        validator.validate(this);
+        return false;
+    }
 
     public Map<String, String> getMap() {
         ObjectMapper objectMapper = new ObjectMapper();
