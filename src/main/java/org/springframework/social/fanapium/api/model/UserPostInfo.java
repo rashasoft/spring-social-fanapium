@@ -13,7 +13,7 @@ import java.util.Objects;
  * UserPostInfoSrv
  */
 
-public class UserPostInfo {
+public class UserPostInfo extends AbstractResponseDTO {
 
     private Long postId = null;
 

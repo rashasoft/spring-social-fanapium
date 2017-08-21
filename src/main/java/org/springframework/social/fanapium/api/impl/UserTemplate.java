@@ -15,6 +15,8 @@ public class UserTemplate extends AbstractFanapiumOperations implements UserOper
 
     @Override
     public AbstractResponseDTO<CustomerProfile> getUserProfile() {
-        return null;
+        requireUserAuthorization();
+        return get(buildUri(USER_INFO_URL, null), AbstractResponseDTO.class);
+
     }
 }

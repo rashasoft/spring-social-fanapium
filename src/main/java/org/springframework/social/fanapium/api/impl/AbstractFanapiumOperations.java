@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public abstract class AbstractFanapiumOperations {
 
-    private static final String API_URL_BASE = " http://sandbox.fanapium.com:8081/";
+    private static final String API_URL_BASE = "http://sandbox.fanapium.com:8081/";
     protected final FanapiumTemplate fanapium;
     private final boolean isAuthorized;
 
@@ -49,8 +49,10 @@ public abstract class AbstractFanapiumOperations {
 
     protected URI buildUri(String path, Map<String, String> params) {
         URIBuilder uriBuilder = URIBuilder.fromUri(API_URL_BASE + path);
-        for (String paramName : params.keySet()) {
-            uriBuilder.queryParam(paramName, String.valueOf(params.get(paramName)));
+        if (params != null) {
+            for (String paramName : params.keySet()) {
+                uriBuilder.queryParam(paramName, String.valueOf(params.get(paramName)));
+            }
         }
         URI uri = uriBuilder.build();
         return uri;

@@ -1,5 +1,6 @@
 package org.springframework.social.fanapium.connect;
 
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.oauth2.OAuth2Template;
 
 public class FanapiumOAuth2Template extends OAuth2Template {
@@ -17,5 +18,11 @@ public class FanapiumOAuth2Template extends OAuth2Template {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.setUseParametersForClientAuthentication(true);
+    }
+
+    @Override
+    public String buildAuthenticateUrl(OAuth2Parameters parameters) {
+        parameters.setScope("write");
+        return super.buildAuthenticateUrl(parameters);
     }
 }
