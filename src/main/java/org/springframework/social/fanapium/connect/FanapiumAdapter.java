@@ -10,6 +10,7 @@ import org.springframework.social.fanapium.api.model.CustomerProfile;
 
 
 public class FanapiumAdapter implements ApiAdapter<Fanapium> {
+
     public boolean test(Fanapium fanapium) {
         try {
             fanapium.postOperations().getUserPostInfos("612");
@@ -21,8 +22,8 @@ public class FanapiumAdapter implements ApiAdapter<Fanapium> {
 
     public void setConnectionValues(Fanapium fanapium, ConnectionValues values) {
         CustomerProfile customerProfile = fanapium.userOperations().getUserProfile().getResult();
-        values.setDisplayName(customerProfile.getName());
-        values.setProviderUserId(customerProfile.getUserId().toString());
+        values.setDisplayName("mohammad");
+        values.setProviderUserId("313");
     }
 
     public UserProfile fetchUserProfile(Fanapium fanapium) {
