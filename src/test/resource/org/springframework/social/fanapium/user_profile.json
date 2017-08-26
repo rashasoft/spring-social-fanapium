@@ -1,0 +1,41 @@
+{
+    "firstName": "string",
+    "lastName": "string",
+    "name": "string",
+    "email": "string",
+    "phoneNumber": "string",
+    "nationalCode": "string",
+    "gender": "string",
+    "addressSrv": {
+        "id": 0,
+        "state": "string",
+        "city": "string",
+        "postalcode": "string",
+        "address": "string",
+        "phoneNumber": "string",
+        "latitude": 0,
+        "longitude": 0,
+        "simpleAddress": "string"
+    },
+    "nickName": "string",
+    "birthDate": 0,
+    "score": 0,
+    "followingCount": 0,
+    "imageInfo": {
+        "id": 0,
+        "name": "string",
+        "hashCode": "string",
+        "description": "string",
+        "actualWidth": 0,
+        "actualHeight": 0,
+        "width": 0,
+        "height": 0
+    },
+    "joinDate": 0,
+    "cellphoneNumber": "string",
+    "userId": 0,
+    "sheba": "string",
+    "guest": true,
+    "chatSendEnable": true,
+    "chatReceiveEnable": true
+}
