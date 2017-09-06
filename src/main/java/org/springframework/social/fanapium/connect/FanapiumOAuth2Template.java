@@ -22,7 +22,7 @@ public class FanapiumOAuth2Template extends OAuth2Template {
 
     @Override
     public String buildAuthenticateUrl(OAuth2Parameters parameters) {
-        parameters.setScope("write");
+        parameters.setScope("email phone");
         return super.buildAuthenticateUrl(parameters);
     }
 }
