@@ -7,13 +7,15 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.social.fanapium.api.*;
+import org.springframework.social.fanapium.api.ChatOperations;
+import org.springframework.social.fanapium.api.Fanapium;
+import org.springframework.social.fanapium.api.PostOperations;
+import org.springframework.social.fanapium.api.UserOperations;
 import org.springframework.social.fanapium.api.impl.json.FanapiumModule;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.OAuth2Version;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.support.HttpRequestDecorator;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.URI;
@@ -34,18 +36,12 @@ public class FanapiumTemplate extends AbstractOAuth2ApiBinding implements Fanapi
 
     public FanapiumTemplate(String clientId, String clientSecret, String accessToken) {
         super(accessToken);
-        registerOAuth2Interceptor(accessToken);
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.accessToken = accessToken;
+        registerOAuth2Interceptor(accessToken);
         wrapRequestFactory();
         initialize();
-    }
-
-    public static void main(String[] args) {
-        FanapiumTemplate fanapiumTemplate = new FanapiumTemplate("a5174580a4dc8e0f1847ac97", "0c21bcee", null);
-        fanapiumTemplate.postOperations().getUserPostInfos("12");
-        System.out.println("hey");
     }
 
     public ChatOperations chatOperations() {
@@ -86,22 +82,23 @@ public class FanapiumTemplate extends AbstractOAuth2ApiBinding implements Fanapi
         return converter;
     }
 
-    @Override
+    /*@Override
     protected void configureRestTemplate(RestTemplate restTemplate) {
         restTemplate.setErrorHandler(new FanapiumErrorHandler());
-    }
+    }*/
 
     // private helpers
     private void initialize() {
         // Wrap the request factory with a BufferingClientHttpRequestFactory so that the error handler can do repeat reads on the response.getBody()
         super.setRequestFactory(ClientHttpRequestFactorySelector.bufferRequests(getRestTemplate().getRequestFactory()));
+        objectMapper = new ObjectMapper();
         initSubApis();
     }
 
     private void initSubApis() {
-        postOperations = new PostTemplate(this, isAuthorized());
-        chatOperations = new ChatTemplate(this, isAuthorized());
-        userOperations = new UserTemplate(this, isAuthorized());
+        postOperations = new PostTemplate(this, isAuthorized(), objectMapper);
+        chatOperations = new ChatTemplate(this, isAuthorized(), objectMapper);
+        userOperations = new UserTemplate(this, isAuthorized(), objectMapper);
     }
 
     private void registerOAuth2Interceptor(String accessToken) {

@@ -1,5 +1,6 @@
 package org.springframework.social.fanapium.api.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.social.fanapium.api.UserOperations;
 import org.springframework.social.fanapium.api.model.AbstractResponseDTO;
 import org.springframework.social.fanapium.api.model.CustomerProfile;
@@ -8,15 +9,19 @@ public class UserTemplate extends AbstractFanapiumOperations implements UserOper
 
     private static String USER_INFO_URL = "nzh/getUserProfile";
 
-    public UserTemplate(FanapiumTemplate fanapium, boolean isAuthorized) {
-        super(fanapium, isAuthorized);
+    private final ObjectMapper objectMapper;
+
+    public UserTemplate(FanapiumTemplate fanapium, boolean isAuthorized, ObjectMapper mapper) {
+        super(fanapium, isAuthorized, mapper);
+        this.objectMapper = mapper;
     }
 
 
     @Override
-    public AbstractResponseDTO<CustomerProfile> getUserProfile() {
+    public CustomerProfile getUserProfile() {
         requireUserAuthorization();
-        return get(buildUri(USER_INFO_URL, null), AbstractResponseDTO.class);
-
+        Object hashMap = fanapium.getRestTemplate().getForObject("http://sandbox.fanapium.com:8081/" + USER_INFO_URL, AbstractResponseDTO.class).getResult();
+        CustomerProfile customerProfile = map(hashMap, CustomerProfile.class);
+        return customerProfile;
     }
 }
