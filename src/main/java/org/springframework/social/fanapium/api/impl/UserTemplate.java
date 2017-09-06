@@ -20,7 +20,7 @@ public class UserTemplate extends AbstractFanapiumOperations implements UserOper
     @Override
     public CustomerProfile getUserProfile() {
         requireUserAuthorization();
-        Object hashMap = fanapium.getRestTemplate().getForObject("http://sandbox.fanapium.com:8081/" + USER_INFO_URL, AbstractResponseDTO.class).getResult();
+        Object hashMap = fanapium.getRestTemplate().getForObject(buildUri(USER_INFO_URL), AbstractResponseDTO.class).getResult();
         CustomerProfile customerProfile = map(hashMap, CustomerProfile.class);
         return customerProfile;
     }
