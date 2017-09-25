@@ -12,8 +12,8 @@ public class FanapiumOAuth2Template extends OAuth2Template {
         super(
                 clientId,
                 clientSecret,
-                "https://sandbox.fanapium.com/oauth2/authorize/",
-                "https://sandbox.fanapium.com/oauth2/token"
+                "https://keylead.fanapium.com/oauth2/authorize/",
+                "https://keylead.fanapium.com/oauth2/token"
         );
         this.clientId = clientId;
         this.clientSecret = clientSecret;

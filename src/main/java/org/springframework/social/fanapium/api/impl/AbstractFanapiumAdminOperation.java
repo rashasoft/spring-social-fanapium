@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public abstract class AbstractFanapiumAdminOperation {
 
-    private static final String API_URL_BASE = "https://sandbox.fanapium.com/";
+    private static final String API_URL_BASE = "https://keylead.fanapium.com/";
     protected final FanapiumTemplate fanapium;
     private final boolean isAuthorized;
 

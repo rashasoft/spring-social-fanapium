@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public abstract class AbstractFanapiumOperations {
 
-    private static final String API_URL_BASE = "http://sandbox.fanapium.com:8081/";
+    private static final String API_URL_BASE = "http://sandbox.fanapium.com:8080/";
     protected final FanapiumTemplate fanapium;
     private final boolean isAuthorized;
     private final ObjectMapper objectMapper;
