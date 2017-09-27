@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * CustomerProfileSrv
+ * CustomerProfile
  */
 
 public class CustomerProfile {

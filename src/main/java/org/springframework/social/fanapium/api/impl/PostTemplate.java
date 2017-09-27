@@ -1,5 +1,6 @@
 package org.springframework.social.fanapium.api.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.social.fanapium.api.PostOperations;
 import org.springframework.social.fanapium.api.model.AbstractResponseDTO;
 import org.springframework.social.fanapium.api.model.CustomPost;
@@ -21,9 +22,11 @@ public class PostTemplate extends AbstractFanapiumOperations implements PostOper
     private static String TIMELINE_URL = "nzh/biz/timeline";
     private static String GET_USER_POST_INFOS_URL = "nzh/getUserPostInfos";
     private static String ADD_CUSTOM_POST_URL = "nzh/addCustomPost";
+    private final ObjectMapper objectMapper;
 
-    public PostTemplate(FanapiumTemplate fanapium, boolean isAuthorized) {
-        super(fanapium, isAuthorized);
+    public PostTemplate(FanapiumTemplate fanapium, boolean isAuthorized, ObjectMapper objectMapper) {
+        super(fanapium, isAuthorized, objectMapper);
+        this.objectMapper = objectMapper;
     }
 
     @Override

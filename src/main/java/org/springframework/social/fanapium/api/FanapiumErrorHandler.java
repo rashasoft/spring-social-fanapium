@@ -40,7 +40,7 @@ public class FanapiumErrorHandler extends DefaultResponseErrorHandler {
         }
         // only bother checking the body for errors if we get past the default error check
         String content = readFully(response.getBody());
-        return content.contains("\"hasError\":") || content.equals("false");
+        return content.contains("\"hasError\": true");
     }
 
     @SuppressWarnings("unchecked")
@@ -48,8 +48,8 @@ public class FanapiumErrorHandler extends DefaultResponseErrorHandler {
         ObjectMapper mapper = new ObjectMapper(new JsonFactory());
         Map<String, Object> responseMap = mapper.<Map<String, Object>>readValue(response.getBody(), new TypeReference() {
         });
-        if (responseMap.containsKey("meta")) {
-            Map<String, Object> meta = (Map<String, Object>) responseMap.get("meta");
+        if (responseMap.containsKey("code")) {
+            Map<String, Object> meta = (Map<String, Object>) responseMap.get("code");
             if (Integer.valueOf(String.valueOf(meta.get("code"))).intValue() > 200) {
                 return meta;
             }

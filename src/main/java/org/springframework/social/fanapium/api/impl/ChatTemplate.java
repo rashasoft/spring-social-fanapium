@@ -1,5 +1,6 @@
 package org.springframework.social.fanapium.api.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.social.fanapium.api.ChatOperations;
 
 /**
@@ -8,8 +9,11 @@ import org.springframework.social.fanapium.api.ChatOperations;
  */
 public class ChatTemplate extends AbstractFanapiumOperations implements ChatOperations {
 
-    public ChatTemplate(FanapiumTemplate fanapium, boolean isAuthorized) {
-        super(fanapium, isAuthorized);
+    private final ObjectMapper objectMapper;
+
+    public ChatTemplate(FanapiumTemplate fanapium, boolean isAuthorized, ObjectMapper objectMapper) {
+        super(fanapium, isAuthorized, objectMapper);
+        this.objectMapper = objectMapper;
     }
 
     @Override

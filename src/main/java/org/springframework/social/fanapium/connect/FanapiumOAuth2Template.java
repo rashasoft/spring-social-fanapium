@@ -1,6 +1,5 @@
 package org.springframework.social.fanapium.connect;
 
-import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.oauth2.OAuth2Template;
 
@@ -13,8 +12,8 @@ public class FanapiumOAuth2Template extends OAuth2Template {
         super(
                 clientId,
                 clientSecret,
-                "https://sandbox.fanapium.com/oauth2/authorize/",
-                "https://sandbox.fanapium.com/oauth2/token"
+                "https://keylead.fanapium.com/oauth2/authorize/",
+                "https://keylead.fanapium.com/oauth2/token"
         );
         this.clientId = clientId;
         this.clientSecret = clientSecret;
@@ -23,7 +22,7 @@ public class FanapiumOAuth2Template extends OAuth2Template {
 
     @Override
     public String buildAuthenticateUrl(OAuth2Parameters parameters) {
-        parameters.setScope("write");
-        return super.buildAuthenticateUrl(GrantType.IMPLICIT_GRANT, parameters);
+        parameters.setScope("email phone");
+        return super.buildAuthenticateUrl(parameters);
     }
 }

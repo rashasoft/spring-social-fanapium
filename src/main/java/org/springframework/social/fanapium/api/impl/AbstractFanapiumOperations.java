@@ -1,10 +1,13 @@
 package org.springframework.social.fanapium.api.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 import org.springframework.social.MissingAuthorizationException;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.Collections;
 import java.util.Map;
@@ -15,13 +18,15 @@ import java.util.Map;
  */
 public abstract class AbstractFanapiumOperations {
 
-    private static final String API_URL_BASE = " http://sandbox.fanapium.com:8081/";
+    private static final String API_URL_BASE = "http://sandbox.fanapium.com:8080/";
     protected final FanapiumTemplate fanapium;
     private final boolean isAuthorized;
+    private final ObjectMapper objectMapper;
 
-    public AbstractFanapiumOperations(FanapiumTemplate fanapium, boolean isAuthorized) {
+    public AbstractFanapiumOperations(FanapiumTemplate fanapium, boolean isAuthorized, ObjectMapper objectMapper) {
         this.fanapium = fanapium;
         this.isAuthorized = isAuthorized;
+        this.objectMapper = objectMapper;
     }
 
     protected <T> T get(URI uri, Class<T> responseType) {
@@ -58,4 +63,14 @@ public abstract class AbstractFanapiumOperations {
         return uri;
     }
 
+    protected <T> T map(Object json, Class<T> type) {
+        String jsonString = new JSONObject((Map) json).toString();
+        Object result = null;
+        try {
+            result = objectMapper.readValue(jsonString, type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return (T) result;
+    }
 }
