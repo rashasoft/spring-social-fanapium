@@ -1,17 +1,42 @@
 package org.springframework.social.fanapium.config.boot;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.autoconfigure.social.SocialWebAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
+import org.springframework.social.config.annotation.EnableSocial;
+import org.springframework.social.config.annotation.SocialConfigurerAdapter;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.web.GenericConnectionStatusView;
+import org.springframework.social.fanapium.api.Fanapium;
+import org.springframework.social.fanapium.connect.FanapiumConnectionFactory;
 
 import javax.sql.DataSource;
 
 @Configuration
+@ConditionalOnClass({SocialConfigurerAdapter.class, FanapiumConnectionFactory.class})
+@ConditionalOnProperty(prefix = "spring.social.fanapium", name = "client-id")
+@AutoConfigureBefore(SocialWebAutoConfiguration.class)
+@AutoConfigureAfter(WebMvcAutoConfiguration.class)
 public class FanapiumAutoConfiguration {
 
     @Bean(destroyMethod = "shutdown")
@@ -31,11 +56,15 @@ public class FanapiumAutoConfiguration {
         return populator;
     }
 
-    /*protected static class FanapiumConfigurerAdapter extends SocialConfigurerAdapter {
+    @Configuration
+    @EnableSocial
+    @EnableConfigurationProperties(FanapiumProperties.class)
+    @ConditionalOnWebApplication
+    protected static class FanapiumConfigurerAdapter extends SocialConfigurerAdapter {
         @Autowired
         FanapiumProperties properties;
 
-        @Inject
+        @Autowired
         private DataSource dataSource;
 
         @Bean
@@ -55,12 +84,15 @@ public class FanapiumAutoConfiguration {
 
         @Override
         public void addConnectionFactories(final ConnectionFactoryConfigurer configurer, final Environment environment) {
-            final FanapiumConnectionFactory factory =
-                    new FanapiumConnectionFactory(properties.getClientId(), properties.getClientSecret(), "");
+            final FanapiumConnectionFactory factory = new FanapiumConnectionFactory(
+                    properties.getClientId(),
+                    properties.getClientSecret(),
+                    ""
+            );
 
             factory.setScope("email profile");
             configurer.addConnectionFactory(factory);
         }
 
-    }*/
+    }
 }
